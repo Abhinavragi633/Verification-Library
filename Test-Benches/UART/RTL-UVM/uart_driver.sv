@@ -7,8 +7,8 @@ class drvr extends uvm_driver #(seq_item);
 
   virtual uart_itf v_itf;
 
-  virtual function void build_phase(uvm_phase pase);
-    super.build_phase();
+  virtual function void build_phase(uvm_phase phase);
+    super.build_phase(phase);
     if (!uvm_config_db#(virtual uart_itf)::get(this, "", "uart_itf", v_itf)) begin
       `uvm_fatal("DRIVER", "Could not find virtual interface.")
     end
@@ -28,10 +28,10 @@ class drvr extends uvm_driver #(seq_item);
   virtual task drive_item(seq_item sqn_itm);
     @(v_itf.cb);
     v_itf.cb.addr <= sqn_itm.addr;
-    v_itf.cb.write_en <= sqn_itm.addr;
-    v_itf.cb.read_en <= sqn_itm.addr;
-    v_itf.cb.write_data <= sqn_itm.addr;
-    v_itf.cb.rx <= sqn_itm.addr;
+    v_itf.cb.write_en <= sqn_itm.write_en;
+    v_itf.cb.read_en <= sqn_itm.read_en;
+    v_itf.cb.wdata <= sqn_itm.wdata;
+    v_itf.cb.rx <= sqn_itm.rx;
     v_itf.rst_n <= sqn_itm.rst_n;
   endtask
 endclass
