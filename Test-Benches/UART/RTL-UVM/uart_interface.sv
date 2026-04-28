@@ -13,5 +13,15 @@ interface uart_itf (input logic clk);
   logic tx;
   logic rx;
 
-  clocking cb @(posedge
+  clocking cb @(posedge clk);
+    default input #1step output #3ns;
+    output addr;
+    output write_en;
+    output read_en;
+    output wdata;
+    output rx;
+    input rdata;
+    input tx;
+    input irq;
+  endclocking
 endinterface
