@@ -21,9 +21,17 @@ class montr extends uvm_monitor;
 
     forever begin
       @(v_itf_cb);
-      if (v_itf.rstn) begin
+      if (v_itf.cb.rstn) begin
         seq_item sqn_itm = seq_item::type_id::create("sqn_itm");
         sqn_itm.addr = v_itf.addr;
+        sqn_itm.write_en = v_itf.write_en;
+        sqn_itm.read_en = v_itf.read_en;
+        sqn_itm.wdata = v_itf.wdata;
+        sqn_itm.rdata = v_itf.cb.rdata;
+        sqn_itm.rx = v_itf.rx;
+        sqn_itm.tx = v_itf.cb.tx;
+        sqn_itm.irq = v_itf.cb.irq;
+        sqn_itm.rst_n = v_itf.rst_n;
       end
     end
   endtask
