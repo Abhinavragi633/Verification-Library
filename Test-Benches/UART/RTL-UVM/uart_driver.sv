@@ -27,6 +27,11 @@ class drvr extends uvm_driver #(seq_item);
 
   virtual task drive_item(seq_item sqn_itm);
     @(v_itf.cb);
-    v_itf.cb.in <= sqn_itm.in;
+    v_itf.cb.addr <= sqn_itm.addr;
+    v_itf.cb.write_en <= sqn_itm.addr;
+    v_itf.cb.read_en <= sqn_itm.addr;
+    v_itf.cb.write_data <= sqn_itm.addr;
+    v_itf.cb.rx <= sqn_itm.addr;
+    v_itf.rst_n <= sqn_itm.rst_n;
   endtask
 endclass
