@@ -20,6 +20,7 @@ interface uart_itf (input logic clk);
     output read_en;
     output wdata;
     output rx;
+    output rst_n;
     input rdata;
     input tx;
     input irq;
