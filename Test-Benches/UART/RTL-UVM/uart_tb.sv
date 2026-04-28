@@ -1,11 +1,11 @@
 module tb_top;
-  import uvm_pkg::*;
+  import uvm_pkg::*;   // This Package contains all UVM features and functions.
   
-  bit clk;
-  always #10 clk <= !clk;
+  // bit clk;
+  // always #10 clk <= !clk;  ----> this way can't manage clk dynamically during simulation. Sol: use another agent for clock.
 
-  uart_itf itf_0 (clk);
-  uart_top dut_0 ( .clk(clk),
+  uart_itf itf_0 ();                            // Interface Instantiation
+  uart_top dut_0 ( .clk(itf_0.clk),                      // DUT Instanstiation
                   .rst_n(itf_0.rst_n),
                   .irq(itf_0.irq),
                   .addr(itf_0.addr),
