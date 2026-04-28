@@ -1,6 +1,7 @@
 class seq_item extends uvm_sequence_item;
 
   `uvm_object_utils_begin(seq_item)
+  `uvm_field_int(rst_n,      UVM_ALL_ON)
     `uvm_field_int(addr,     UVM_ALL_ON)
     `uvm_field_int(write_en, UVM_ALL_ON)
     `uvm_field_int(read_en,  UVM_ALL_ON)
@@ -20,6 +21,7 @@ class seq_item extends uvm_sequence_item;
   bit [7:0] rdata;
   bit tx;
   bit irq;
+  bit rst_n;
 
   function new(string name = "seq_item");
     super.new(name);
@@ -31,8 +33,8 @@ class seq_item extends uvm_sequence_item;
   function string convert2string();
     return $sformatf(
       "\n\tSEQ_ITEM (REG) addr=%0h w_en=%0d wdata=%0h r_en=%0d rdata=%0h"
-      "\n\tSEQ_ITEM (SERIAL) rx=%0d tx=%0d irq=%0d",
-      addr, write_en, wdata, read_en, rdata, rx, tx, irq
+      "\n\tSEQ_ITEM (SERIAL) rx=%0d tx=%0d irq=%0d rst_n=%0d",
+      addr, write_en, wdata, read_en, rdata, rx, tx, irq, rst_n
     );
   endfunction
 
