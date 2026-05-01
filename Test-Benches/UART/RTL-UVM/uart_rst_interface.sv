@@ -6,6 +6,5 @@ interface rst_interface ();
 
   // Mod Ports.
   modport DUT (input rst_n);
-  modport tb_top (output rst_n);
   
 endinterface
