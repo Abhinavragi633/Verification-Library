@@ -1,7 +1,6 @@
-class seq_item extends uvm_sequence_item;
+class uart_seq_item extends uvm_sequence_item;
 
-  `uvm_object_utils_begin(seq_item)
-  `uvm_field_int(rst_n,      UVM_ALL_ON)
+  `uvm_object_utils_begin(uart_seq_item)
     `uvm_field_int(addr,     UVM_ALL_ON)
     `uvm_field_int(write_en, UVM_ALL_ON)
     `uvm_field_int(read_en,  UVM_ALL_ON)
@@ -21,7 +20,6 @@ class seq_item extends uvm_sequence_item;
   bit [7:0] rdata;
   bit tx;
   bit irq;
-  bit rst_n;
 
   function new(string name = "seq_item");
     super.new(name);
