@@ -1,7 +1,5 @@
-interface uart_itf (input logic clk);
-  logic rst_n;
-  logic irq;
-  
+interface uart_interface ();
+
   //--------- Registers Interface -----------//
   logic [4:0] addr;
   logic write_en;
@@ -13,16 +11,19 @@ interface uart_itf (input logic clk);
   logic tx;
   logic rx;
 
-  clocking cb @(posedge clk);
-    default input #1step output #3ns;
-    output addr;
-    output write_en;
-    output read_en;
-    output wdata;
-    output rx;
-    output rst_n;
-    input rdata;
-    input tx;
-    input irq;
-  endclocking
+  // Mod port Declarations............
+  modport DUT ( input addr,
+               input write_en,
+               input read_en,
+               input wdata,
+               input rx,
+               output rdata,
+               output tx );
+  modport tb_top ( output addr,
+                  output write_en,
+                  output read_en,
+                  output wdata,
+                  output rx,
+                  input rdata,
+                  input tx );
 endinterface
