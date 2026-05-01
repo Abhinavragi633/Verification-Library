@@ -5,7 +5,8 @@ class clk_seq_item extends uvm_sequence_item;
   real clk_freq;
   bit clk_en;
   
-  virtual function new (string name = "clk_seq_item");	      // uvm_objects cannot pass parent in new() constructor
+  function new (string name = "clk_seq_item");	      // uvm_objects cannot pass parent in new() constructor
     super.new(name);
+    `uvm_info("CLK_SEQ_ITEM(new)",$sformatf("Instantiated new %s created.",name))
   endfunction
 endclass
