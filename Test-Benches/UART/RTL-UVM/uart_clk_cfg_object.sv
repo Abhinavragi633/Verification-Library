@@ -5,7 +5,7 @@ class clk_cfg_obj extends uvm_object;
   real clk_freq;
   bit clk_en;
   
-  virtual function new (string name = "clk_cfg_obj", parent = null);
-    super.new(name,parent);
+	virtual function new (string name = "clk_cfg_obj");	      // Objects cannot pass parent in new() constructor
+    super.new(name);
   endfunction
 endclass
