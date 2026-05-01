@@ -1,17 +1,15 @@
 // Class Declaration for Base Clock Control Sequence for Clk Agent
-class base_clk_seq extends uvm_sequence;
+class base_clk_seq extends uvm_sequence #(clk_seq_item);
 	`uvm_object_utils(base_clk_seq);
-	clk_cfg_obj clk_cfg0;
 
 	task body();
+		clk_seq_item clk_seq0;
 		
-		if(!uvm_config_db #(clk_cfg_obj)::get(null,"*","clk_cfg_obj",clk_cfg0)) begin
-			`uvm_fatal("CLK_SEQ-body"," Unable to get clk_cfg_obj from UVM Config DB.")
-		end else begin
-			`uvm_info("CLK_SEQ-body","Got clk_cfg_obj from UVM Config DB Successfully.")
-		end
-
+		clk_seq0 = clk_seq_item::type_id::create("clk_seq0");
 		clk_cfg0.clk_freq = 100;	//  Clock Frequency Set to 100 MHz.
-		clk_cfg0.clk_en = 1;
+		clk_cfg0.clk_en = 0;
+		start_item(clk_seq0);
+		finish_item(clk_seq0);
+		
 	endtask
 endclass
