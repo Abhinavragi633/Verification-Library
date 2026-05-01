@@ -33,16 +33,12 @@ class clk_agnt extends uvm_agent;
 
 		// Clock generation
 		forever begin
-			@(posedge clk_cfg.clk_en)
-			clk_v_itf.clk <= 1'b0;
-			@(negedge clk_cfg.clk_en)
-			clk_v_itf.clk <= 1'bz;
-		end
-		forever begin
 			if(clk_cfg.clk_en) begin
 				#(half_period) clk_v_itf.clk <= ~clk_v_itf.clk;
 			end else begin
+				clk_v_itf.clk <= 1'bz;
 				@(posedge clk_cfg.clk_en)
+				clk_v_itf.clk <= 0;
 			end
 		end
 	endtask
