@@ -21,7 +21,7 @@ class uart_seq_item extends uvm_sequence_item;
   bit tx;
   bit irq;
 
-  function new(string name = "seq_item");
+  function new(string name = "uart_seq_item");
     super.new(name);
   endfunction
 
