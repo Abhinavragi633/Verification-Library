@@ -19,11 +19,4 @@ interface uart_interface ();
                input rx,
                output rdata,
                output tx );
-  modport tb_top ( output addr,
-                  output write_en,
-                  output read_en,
-                  output wdata,
-                  output rx,
-                  input rdata,
-                  input tx );
 endinterface
