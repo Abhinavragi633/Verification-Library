@@ -1,45 +1,24 @@
 // Class Declaration for clk agent
-class clk_agnt extends uvm_agent;
-	`uvm_component_utils(clk_agnt)
-
-	// Config and Interface Declaration
-	virtual clk_interface clk_v_itf;
-	clk_cfg_obj clk_cfg;
+class clk_agent extends uvm_agent;
+	`uvm_component_utils(clk_agent)
 	
-	// NEW Construct
-	virtual function new(string name = "clk_agent",uvm_component parent);
+	uvm_sequencer #(clk_seq_item) clk_seqnr;
+	clk_drv clk_drv0;
+	
+	function new(string name, uvm_component parent);
 		super.new(name,parent);
 	endfunction
-	
-	// Build Phase
-	virtual function build_phase(uvm_phase phase);
+
+	virtual function void build_phase(uvm_phase phase);
 		super.build_phase(phase);
-
-		// Get clk config obj from uvm config db
-		if (!uvm_config_db #(clk_cfg_obj)::get(this,"","clk_cfg_obj",clk_cfg)) begin
-			`uvm_fatal("CLK_AGENT-build_phase", "Cannot get clk_cfg_obj from UVM Config DB.")
-		end else begin
-			`uvm_info("CLK_AGENT-build_phase", "Got clk_cfg_obj from UVM Config DB Successfully.")
-		end
+		
+		clk_seqnr = uvm_sequencer#(clk_seq_item)::type_id::create("clk_seqnr",this);
+		clk_drv0 = clk_drv::type_id::create("clk_drv0",this);
 	endfunction
+	
+	virtual function void connect_phase(uvm_phase phase);
+		super.connect_phase(phase);
 
-	// Run Phase
-	virtual task run_phase(uvm_phase phase);
-		super.run_phase(phase);
-
-		// Period Calculation from Frequency
-		real half_period;
-		half_period = (1000.0/clk_cfg.clk_freq) / 2.0; // in ns
-
-		// Clock generation
-		forever begin
-			if(clk_cfg.clk_en) begin
-				#(half_period) clk_v_itf.clk <= ~clk_v_itf.clk;
-			end else begin
-				clk_v_itf.clk <= 1'bz;
-				@(posedge clk_cfg.clk_en)
-				clk_v_itf.clk <= 0;
-			end
-		end
-	endtask
+		clk_drv0.seq_item_port.connect(clk_seqnr.seq_item_export);
+	endfunction
 endclass
