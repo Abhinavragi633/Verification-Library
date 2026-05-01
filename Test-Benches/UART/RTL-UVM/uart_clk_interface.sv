@@ -6,6 +6,5 @@ interface clk_interface ();
 
   // Describing who is Drivers and Load using Mod ports.
   modport DUT (input clk);
-  modport tb_top (output clk);
   
 endinterface
