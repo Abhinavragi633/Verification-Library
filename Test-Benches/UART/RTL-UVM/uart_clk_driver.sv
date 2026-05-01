@@ -29,7 +29,7 @@ class clk_drv extends uvm_driver #(clk_seq_item);
 			`uvm_info("CLK_DRV(Run Phase)",$sformatf("", clk_v_itf.clk))
 
 			if(!item_frm_seqr.clk_en) begin
-				clk_v_itf,clk <= 'z;
+				clk_v_itf.clk <= 'z;
 				seq_item_port.item_done();
 				continue;
 			end
