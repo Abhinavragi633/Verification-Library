@@ -34,7 +34,6 @@ class uart_mntr extends uvm_monitor;
         sqn_itm.rx = uart_v_itf.cb.rx;
         sqn_itm.tx = uart_v_itf.cb.tx;
         sqn_itm.irq = uart_v_itf.cb.irq;
-        sqn_itm.rst_n = v_itf.cb.rst_n;
 
         montr_ana_port.write(sqn_itm);
         
