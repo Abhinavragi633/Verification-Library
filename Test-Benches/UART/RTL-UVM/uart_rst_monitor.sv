@@ -23,6 +23,7 @@ class rst_mntr extends uvm_monitor;
 
     forever begin
         rst_seq_item seqn_itm = rst_seq_item::type_id::create("seqn_itm");
+      @(rst_v_itf.rst_n);
         seqn_itm.rst_n = rst_v_itf.rst_n;
         
         rst_montr_ana_port.write(seqn_itm);
