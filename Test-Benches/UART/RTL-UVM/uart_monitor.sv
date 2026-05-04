@@ -26,14 +26,14 @@ class uart_mntr extends uvm_monitor;
     forever begin
       @(posedge clk_v_itf.clk);
         uart_seq_item sqn_itm = uart_seq_item::type_id::create("sqn_itm",this);
-        sqn_itm.addr = uart_v_itf.cb.addr;
-        sqn_itm.write_en = uart_v_itf.cb.write_en;
-        sqn_itm.read_en = uart_v_itf.cb.read_en;
-        sqn_itm.wdata = uart_v_itf.cb.wdata;
-        sqn_itm.rdata = uart_v_itf.cb.rdata;
-        sqn_itm.rx = uart_v_itf.cb.rx;
-        sqn_itm.tx = uart_v_itf.cb.tx;
-        sqn_itm.irq = uart_v_itf.cb.irq;
+        sqn_itm.addr = uart_v_itf.addr;
+        sqn_itm.write_en = uart_v_itf.write_en;
+        sqn_itm.read_en = uart_v_itf.read_en;
+        sqn_itm.wdata = uart_v_itf.wdata;
+        sqn_itm.rdata = uart_v_itf.rdata;
+        sqn_itm.rx = uart_v_itf.rx;
+        sqn_itm.tx = uart_v_itf.tx;
+        sqn_itm.irq = uart_v_itf.irq;
 
         montr_ana_port.write(sqn_itm);
         
