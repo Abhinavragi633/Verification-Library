@@ -31,10 +31,10 @@ class uart_drvr extends uvm_driver #(uart_seq_item);
 
   virtual task drive_item(seq_item sqn_itm);
     @(posedge clk_v_itf.clk);
-    uart_v_itf.cb.addr <= sqn_itm.addr;
-    uart_v_itf.cb.write_en <= sqn_itm.write_en;
-    uart_v_itf.cb.read_en <= sqn_itm.read_en;
-    uart_v_itf.cb.wdata <= sqn_itm.wdata;
-    uart_v_itf.cb.rx <= sqn_itm.rx;
+    uart_v_itf.addr <= sqn_itm.addr;
+    uart_v_itf.write_en <= sqn_itm.write_en;
+    uart_v_itf.read_en <= sqn_itm.read_en;
+    uart_v_itf.wdata <= sqn_itm.wdata;
+    uart_v_itf.rx <= sqn_itm.rx;
   endtask
 endclass
