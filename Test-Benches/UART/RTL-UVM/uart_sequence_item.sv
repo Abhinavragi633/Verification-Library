@@ -31,8 +31,8 @@ class uart_seq_item extends uvm_sequence_item;
   function string convert2string();
     return $sformatf(
       "\n\tSEQ_ITEM (REG) addr=%0h w_en=%0d wdata=%0h r_en=%0d rdata=%0h"
-      "\n\tSEQ_ITEM (SERIAL) rx=%0d tx=%0d irq=%0d rst_n=%0d",
-      addr, write_en, wdata, read_en, rdata, rx, tx, irq, rst_n
+      "\n\tSEQ_ITEM (SERIAL) rx=%0d tx=%0d irq=%0d ",
+      addr, write_en, wdata, read_en, rdata, rx, tx, irq
     );
   endfunction
 
