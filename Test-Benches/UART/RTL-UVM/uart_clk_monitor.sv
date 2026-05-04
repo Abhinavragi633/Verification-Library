@@ -30,6 +30,8 @@ class clk_mntr extends uvm_monitor;
 
     forever begin
         clk_obj seqn_itm = clk_obj::type_id::create("seqn_itm");
+        
+        @(clk_v_itf.clk)
         seqn_itm.clk = clk_v_itf.clk;
         
         clk_montr_ana_port.write(seqn_itm);
