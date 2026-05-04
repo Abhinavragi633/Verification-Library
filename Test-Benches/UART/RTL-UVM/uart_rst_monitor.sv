@@ -1,7 +1,7 @@
 class rst_mntr extends uvm_monitor;
   `uvm_component_utils(rst_mntr)
 
-  function new(string name = "rst_mntr", uvm_component parent=null);
+  function new(string name, uvm_component parent);
     super.new(name,parent);
   endfunction
 
