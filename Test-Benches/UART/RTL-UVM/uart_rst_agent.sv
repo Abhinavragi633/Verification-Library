@@ -3,6 +3,7 @@ class rst_agent extends uvm_agent;
 	
 	uvm_sequencer #(rst_seq_item) rst_seqnr;
 	rst_drv rst_drv0;
+	rst_mntr rst_mntr0;
 
 	function new (string name, uvm_component parent);
 		super.new(name,parent);
@@ -12,6 +13,7 @@ class rst_agent extends uvm_agent;
 		super.build_phase(phase);
 		rst_seqnr = uvm_sequencer#(rst_seq_item)::type_id::create("rst_seqnr",this);
 		rst_drv0 = rst_drv::type_id::create("rst_drv0",this);
+		rst_mntr0 = rst_mntr::type_id::create("rst_mntr0", this);
 	endfunction
 
 	virtual function void connect_phase(uvm_phase phase);
