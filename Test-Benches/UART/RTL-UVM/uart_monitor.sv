@@ -24,7 +24,7 @@ class uart_mntr extends uvm_monitor;
     super.run_phase(phase);
 
     forever begin
-      @(posedge clk_v_itf.clk);
+      @(uart_v_itf.*);
         uart_seq_item sqn_itm = uart_seq_item::type_id::create("sqn_itm",this);
         sqn_itm.addr = uart_v_itf.addr;
         sqn_itm.write_en = uart_v_itf.write_en;
