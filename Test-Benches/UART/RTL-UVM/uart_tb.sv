@@ -15,18 +15,25 @@ module tb_top;
                   .rdata(itf_0.rdata),
                   .tx(itf_0.tx),
                   .rx(itf_0.rx) );
-  // At start of simulation, set the interface handle as a config object in UVM database. 
-  // This IF handle can be retrieved in the test using the get() method run_test () accepts the test name as argument. 
+  
   
   initial begin
     // Storing the interfacing in UVM Config DB with search scope as uvm_root (global scope) and this value applies to all components.
-    // Accessable by key "uart_vitf" and value to be stored is itf_0
+    // Accessable by key "uart_vitf" and value to be stored is itf_0.
+    // This IF handle can be retrieved in the test using the get() method. 
+    // Interface is static. So, classes can't access interface directly. that is why it is set as virtual.
+    // A virtual interface is just a pointer/handle to the actual interface. Interface instances exist in module hierarchy.
     `uvm_info("tb_top","Storing interface as virtual interface in UVM Config DB.", UVM_HIGH)
-    uvm_config_db #(virtual uart_itf)::set (null, "*", "uart_vitf", itf_0);
-    run_test("base_test");
+    uvm_config_db #(virtual uart_itf)::set (null, "uvm_test_top", "uart_vitf", itf_0);
+
+    // Test names can be passed through +UVM_TESTNAME=base_test command line option or can be directly passed as run_test("base_test");
+    // run_test() 
+    `uvm_info("tb_top","Starting the test ........... ", UVM_HIGH)
+    run_test();
   end
 
   initial begin
+    // Code for Waveform Dump.
     $dumpvars;
     $dumpfile("dump.vcd");           
   end
