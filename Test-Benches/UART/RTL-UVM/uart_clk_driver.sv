@@ -47,7 +47,7 @@ class clk_drv extends uvm_driver #(clk_seq_item);
 			end
 
 			if(clk_item_frm_seqr.clk_freq == 0) begin
-				`uvm_warn("CLK_DRV(Run Phase)","Clock Frequency is 0. So, Driving 0 into interface clk signal.",UVM_LOW)
+				`uvm_warning("CLK_DRV(Run Phase)","Clock Frequency is 0. So, Driving 0 into interface clk signal.",UVM_LOW)
 				vitf.clk <= 1'b0;
 				`uvm_info("CLK_DRV(Run Phase)","item_done is invoked for handshake with sequencer.",UVM_MEDIUM)
 				seq_item_port.item_done();
