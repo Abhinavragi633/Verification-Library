@@ -13,6 +13,6 @@ class clk_seq_item extends uvm_sequence_item;
   // In SV, only behavioral constructs are declared as virtual. So, new() should not be declared as virtual function.
   function new (string name = "clk_seq_item");	      // uvm_objects cannot pass parent in new() constructor
     super.new(name);
-    `uvm_info("CLK_SEQ_ITEM -> new()",$sformatf("Instantiated new %s created.",name),UVM_HIGH)
+    `uvm_info("CLK_SEQ_ITEM -> new()",$sformatf("Constructed a new clk_seq_item with name %s .",name),UVM_HIGH)
   endfunction
 endclass
