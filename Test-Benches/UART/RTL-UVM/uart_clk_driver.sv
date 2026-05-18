@@ -50,9 +50,9 @@ class clk_drv extends uvm_driver #(clk_seq_item);
 			seq_item_port.item_done();
 			
 			while (!seq_item_port.has_do_available()) begin
-				clk_v_itf.clk <= 0;
+				vitf.clk <= 0;
 				#(half_period);
-				clk_v_itf.clk <= 1;
+				vitf.clk <= 1;
 				#(half_period);
 			end
 		end
