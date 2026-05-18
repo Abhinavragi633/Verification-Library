@@ -29,7 +29,7 @@ class clk_drv extends uvm_driver #(clk_seq_item);
 
 		//  Clk is initialized to Z.
 		vitf.clk <= 'z;
-		`uvm_info("CLK_DRV(Run Phase)",$sformatf("clk_v_itf.clk is Initialized to %0b", clk_v_itf.clk),UVM_LOW)
+		`uvm_info("CLK_DRV(Run Phase)",$sformatf("vitf.clk is Initialized to %0b", vitf.clk),UVM_LOW)
 
 		forever begin
 			`uvm_info("CLK_DRV(Run Phase)",$sformatf("Requesting clock sequence item from sequencer........"),UVM_MEDIUM)
@@ -37,12 +37,12 @@ class clk_drv extends uvm_driver #(clk_seq_item);
 			`uvm_info("CLK_DRV(Run Phase)",$sformatf("Received clock sequence item from sequencer."),UVM_MEDIUM)
 			`uvm_info("CLK_DRV(Run Phase)",$sformatf("item_frm_seqr.clk_en = %0b item_frm_seqr.clk_freq = %0f MHz",clk_item_frm_seqr.clk_en,clk_item_frm_seqr.clk_freq),UVM_LOW)
 
-			if(!clk_item_frm_seqr.clk_en) begin
+			if(clk_item_frm_seqr.clk_en != 1) begin
 				vitf.clk <= 'z;
-				`uvm_info("CLK_DRV(Run Phase)","clk_item_frm_seqr.clk_en is not HIGH. So, Driving Hi-Z into clock interface.")
-				`uvm_info("CLK_DRV(Run Phase)","item_done is invoked for handshake with sequencer.")
+				`uvm_info("CLK_DRV(Run Phase)","clk_item_frm_seqr.clk_en is not HIGH. So, Driving Hi-Z into clock interface.", UVM_MEDIUM)
+				`uvm_info("CLK_DRV(Run Phase)","item_done is invoked for handshake with sequencer.",UVM_MEDIUM)
 				seq_item_port.item_done();
-				`uvm_info("CLK_DRV(Run Phase)","item_done is returned for handshake with sequencer.")
+				`uvm_info("CLK_DRV(Run Phase)","item_done is returned for handshake with sequencer.",UVM_LOW)
 				continue;
 			end
 
