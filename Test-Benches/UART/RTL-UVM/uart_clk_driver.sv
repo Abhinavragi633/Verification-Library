@@ -39,7 +39,16 @@ class clk_drv extends uvm_driver #(clk_seq_item);
 
 			if(clk_item_frm_seqr.clk_en != 1) begin
 				vitf.clk <= 'z;
-				`uvm_info("CLK_DRV(Run Phase)","clk_item_frm_seqr.clk_en is not HIGH. So, Driving Hi-Z into clock interface.", UVM_MEDIUM)
+				`uvm_info("CLK_DRV(Run Phase)","clk_item_frm_seqr.clk_en is not HIGH. So, Driving Hi-Z into interface clk signal.", UVM_MEDIUM)
+				`uvm_info("CLK_DRV(Run Phase)","item_done is invoked for handshake with sequencer.",UVM_MEDIUM)
+				seq_item_port.item_done();
+				`uvm_info("CLK_DRV(Run Phase)","item_done is returned for handshake with sequencer.",UVM_LOW)
+				continue;
+			end
+
+			if(clk_item_frm_seqr.clk_freq == 0) begin
+				`uvm_warn("CLK_DRV(Run Phase)","Clock Frequency is 0. So, Driving 0 into interface clk signal.",UVM_LOW)
+				vitf.clk <= 1'b0;
 				`uvm_info("CLK_DRV(Run Phase)","item_done is invoked for handshake with sequencer.",UVM_MEDIUM)
 				seq_item_port.item_done();
 				`uvm_info("CLK_DRV(Run Phase)","item_done is returned for handshake with sequencer.",UVM_LOW)
@@ -47,7 +56,9 @@ class clk_drv extends uvm_driver #(clk_seq_item);
 			end
 
 			half_period = (1000.0/clk_item_frm_seqr.clk_freq)/2.0;
+			`uvm_info("CLK_DRV(Run Phase)","item_done is invoked for handshake with sequencer.",UVM_MEDIUM)
 			seq_item_port.item_done();
+			`uvm_info("CLK_DRV(Run Phase)","item_done is returned for handshake with sequencer.",UVM_LOW)
 			
 			while (!seq_item_port.has_do_available()) begin
 				vitf.clk <= 0;
