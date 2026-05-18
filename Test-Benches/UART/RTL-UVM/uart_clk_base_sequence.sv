@@ -29,6 +29,8 @@ class clk_base_seq extends uvm_sequence #(clk_seq_item);
 		`uvm_info("CLK_BASE_SEQ -> body()","Sequence Item sent to Driver is ........", UVM_LOW)
 		clk_seq.print();  // Prints the sequence item using UVM Factory Automation.
 
+		#100
+
 		//Transaction 2: Clock is ON @ 100MHz.
 		// Constructing a new clock sequence item
 		`uvm_info("CLK_BASE_SEQ -> body()","Creating new clk_seq_item", UVM_HIGH)
