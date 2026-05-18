@@ -5,7 +5,7 @@ module tb_top;
   // always #10 clk <= !clk;  ----> this way can't manage clk dynamically during simulation. Sol: use another agent for clock.
 
   uart_itf itf_0 ();                            // Interface Instantiation
-  uart_top dut_0 ( .clk(itf_0.clk),                      // DUT Instanstiation
+  uart_top DUT ( .clk(itf_0.clk),                      // DUT Instanstiation
                   .rst_n(itf_0.rst_n),
                   .irq(itf_0.irq),
                   .addr(itf_0.addr),
@@ -17,7 +17,7 @@ module tb_top;
                   .rx(itf_0.rx) );
   // At start of simulation, set the interface handle as a config object in UVM database. 
   // This IF handle can be retrieved in the test using the get() method run_test () accepts the test name as argument. 
-  // In this case, base_test will be run for simulation.
+  
   initial begin
     // Storing the interfacing in UVM Config DB with search scope as uvm_root (global scope) and this value applies to all components.
     // Accessable by key "uart_vitf" and value to be stored is itf_0
