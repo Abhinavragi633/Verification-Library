@@ -27,7 +27,7 @@ module tb_top;
     uvm_config_db #(virtual uart_itf)::set (null, "uvm_test_top", "uart_vitf", itf_0);
 
     // Test names can be passed through +UVM_TESTNAME=base_test command line option or can be directly passed as run_test("base_test");
-    // run_test() 
+    // run_test() is pre-defined in uvm_root. Takes testname as the test class. this is the entry point for the simulation.
     `uvm_info("tb_top","Starting the test ........... ", UVM_HIGH)
     run_test();
   end
