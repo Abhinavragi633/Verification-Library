@@ -10,7 +10,7 @@ module tb_top;
                   .irq(itf_0.irq),
                   .addr(itf_0.addr),
                   .write_en(itf_0.write_en),
-                  .read_en(itf_0.read.en),
+                  .read_en(itf_0.read_en),
                   .wdata(itf_0.wdata),
                   .rdata(itf_0.rdata),
                   .tx(itf_0.tx),
@@ -19,12 +19,15 @@ module tb_top;
   // This IF handle can be retrieved in the test using the get() method run_test () accepts the test name as argument. 
   // In this case, base_test will be run for simulation.
   initial begin
-    uvm_config_db #(virtual uart_itf)::set (null, "uvm_test_top", "uart_itf", itf_0);
-    run_test("reg_test");
+    // Storing the interfacing in UVM Config DB with search scope as uvm_root (global scope) and this value applies to all components.
+    // Accessable by key "uart_vitf" and value to be stored is itf_0
+    `uvm_info("tb_top","Storing interface as virtual interface in UVM Config DB.", UVM_HIGH)
+    uvm_config_db #(virtual uart_itf)::set (null, "*", "uart_vitf", itf_0);
+    run_test("base_test");
   end
 
   initial begin
     $dumpvars;
-    $dumfile("dump.vcd");           
+    $dumpfile("dump.vcd");           
   end
 endmodule
