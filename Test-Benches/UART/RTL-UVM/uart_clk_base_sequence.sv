@@ -1,7 +1,7 @@
 // Class Declaration for Base Clock Control Sequence for Clk Agent
 class clk_base_seq extends uvm_sequence #(clk_seq_item);
 	// UVM Factory Registration for Automation.
-	`uvm_object_utils(clk_base_seq);
+	`uvm_object_utils(clk_base_seq)
 
 	function new (string name = "clk_base_seq");
 		super.new(name);
