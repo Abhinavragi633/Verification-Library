@@ -4,6 +4,7 @@ class clk_agent extends uvm_agent;
 	
 	uvm_sequencer #(clk_seq_item) clk_seqnr_0;
 	clk_drv clk_drv_0;
+	clk_mntr clk_mntr_0;
 	
 	function new(string name, uvm_component parent);
 		super.new(name,parent);
@@ -13,16 +14,25 @@ class clk_agent extends uvm_agent;
 	virtual function void build_phase(uvm_phase phase);
 		`uvm_info("CLK_AGENT -> build_phase()"," Build_phase has started.", UVM_HIGH)
 		super.build_phase(phase);
-		
-		clk_seqnr_0 = uvm_sequencer#(clk_seq_item)::type_id::create("clk_seqnr_0",this);
-		clk_drv_0 = clk_drv::type_id::create("clk_drv_0",this);
+
+		// Monitor ALWAYS created
+    	clk_mntr_0 = clk_mntr::type_id::create("clk_mntr_0", this);
+
+    	// Create only in ACTIVE mode
+    	if (is_active == UVM_ACTIVE) begin
+      		clk_seqnr_0 = uvm_sequencer #(clk_seq_item)::type_id::create("clk_seqnr_0", this);
+			clk_drv_0 = clk_drv::type_id::create("clk_drv_0", this);
+    	end
+
 	endfunction
 	
 	virtual function void connect_phase(uvm_phase phase);
 		`uvm_info("CLK_AGENT -> connect_phase","Connect Phase has Started.",UVM_HIGH)
 		super.connect_phase(phase);
 
-		`uvm_info("CLK_AGENT -> connect_phase","Connecting clk driver port to clk Sequencer's export.",UVM_MEDIUM)
-		clk_drv_0.seq_item_port.connect(clk_seqnr_0.seq_item_export);
+		if (is_active == UVM_ACTIVE) begin
+			`uvm_info("CLK_AGENT -> connect_phase","Connecting clk driver port to clk Sequencer's export.",UVM_MEDIUM)
+			clk_drv_0.seq_item_port.connect(clk_seqnr_0.seq_item_export);
+		end
 	endfunction
 endclass
