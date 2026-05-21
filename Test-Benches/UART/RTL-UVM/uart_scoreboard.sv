@@ -95,4 +95,3 @@ class uart_scbd extends uvm_scoreboard;
   endfunction
 
 endclass
-``
