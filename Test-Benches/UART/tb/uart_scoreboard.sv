@@ -3,7 +3,7 @@ class uart_scbd extends uvm_scoreboard;
 
 	`uvm_analysis_imp_decl(_clk);
 
-	uvm_analysis_imp_clk #(clk_seq_item, uart_scbd) clk_ana_imp;
+	uvm_analysis_imp_clk #(clk_cntrl_seq_item, uart_scbd) clk_ana_imp;
 
 	function new(string name="uart_scbd", uvm_component parent=null);
 		`uvm_info("uart_scbd",$sformatf("new() constructor is called for uvm_component %s from uvm_component %s",this.get_name(),parent.get_full_name()),UVM_DEBUG)
@@ -11,13 +11,13 @@ class uart_scbd extends uvm_scoreboard;
 		`uvm_info("uart_scbd",$sformatf("new() constructor is completed for uvm_component %s.",this.get_full_name()),UVM_FULL)
   	endfunction
 
-	virtual void function build_phase (uvm_phase phase);
+	virtual function void build_phase (uvm_phase phase);
 		`uvm_info("uart_scbd",$sformatf("Build Phase for %s has started.",this.get_full_name()),UVM_FULL)
 
 		super.build_phase(phase);
 		
 		`uvm_info("uart_scbd","Creating new clk_imp_port...........",UVM_MEDIUM)
-		clk_imp_port = new("clk_ana_imp", this);
+		clk_ana_imp = new("clk_ana_imp", this);
 
 		`uvm_info("uart_scbd",$sformatf("Build Phase for %s has completed.",this.get_full_name()),UVM_FULL)
 	endfunction
