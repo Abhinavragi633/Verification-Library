@@ -22,7 +22,7 @@ class uart_scbd extends uvm_scoreboard;
 		`uvm_info("uart_scbd",$sformatf("Build Phase for %s has completed.",this.get_full_name()),UVM_FULL)
 	endfunction
 
-	virtual function void write_clk(clk_cntrl_seq clk_cntrl);
+	virtual function void write_clk(clk_cntrl_seq_item clk_cntrl);
 		`uvm_info("uart_scbd","clk_cntrl_seq_item received from clk_mntr.",UVM_LOW)
 		clk_cntrl.print();
 		//  DECLARATIONS MUST BE FIRST
