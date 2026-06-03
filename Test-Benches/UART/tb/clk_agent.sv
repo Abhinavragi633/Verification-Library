@@ -174,14 +174,26 @@ class clk_agent extends uvm_agent;
 
 		super.build_phase(phase);
 
-		clk_mntr_0 = clk_mntr::type_id::create
+		clk_mntr_0 = clk_mntr::type_id::create("clk_mntr_0",this);
 
-		if(uvm_config_db #(virtual uart_itf)::get(this,"","uart_vitf",uart_vitf_0) begin
-			`uvm_info("clk_mntr","Successfully fetched virtual UART Inteface from UVM Config DB.",UVM_FULL)
-		end else begin
-			`uvm_fatal("clk_mntr","Unable to fetch virtual UART Interface from UVM Config DB.")
+		if(is_active == UVM_ACTIVE) begin
+			clk_seqr_0 = uvm_sequencer#(clk_cntrl_seq_item)::type_id::create("clk_seqr_0", this);
+      		clk_drv_0   = clk_drv::type_id::create("clk_drv_0", this);
+    	end
+
+		`uvm_info("clk_agent",$sformatf("Build Phase for %s has completed.",this.get_full_name()),UVM_FULL)
+	endfunction
+
+	virtual void function connect_phase(uvm_phase phase);
+		`uvm_info("clk_agent",$sformatf("Connect Phase for %s has started.",this.get_full_name()),UVM_FULL)
+
+		super.connect_phase(phase);
+		
+		if(is_active == UVM_ACTIVE) begin
+			clk_drv_0.seq_item_port.connect(clk_seqr_0.seq_item_export);
 		end
 
-		   // clk_mntr_ap = uvm_analysis_port #(clk_cntrl_seq_item)::type_id::create("clk_mntr_ap"); ----->
-		   // This is not use this type of instantiation is only used for UVM components and objects which needs Factory Instantiation and potentially overriden somewhere else.
-		   `uvm_info("clk_mntr",$sformatf("Build Phase for %s has completed.",this.get_full_name()),UVM_FULL)
+		`uvm_info("clk_agent",$sformatf("Connect Phase for %s has completed.",this.get_full_name()),UVM_FULL)
+	endfunction
+endclass
+
