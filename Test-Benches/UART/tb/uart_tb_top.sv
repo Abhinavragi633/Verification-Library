@@ -7,7 +7,7 @@
 			5) Initial Block
 				a. Store interface inside UVM Config DB as virtual interface.
 				b. Start UVM Test using run_test().		*/
-`include uart_interface.sv  // This makes uart_itf visible to tb_top Module. Should be called outside module.
+`include "uart_interface.sv"  // This makes uart_itf visible to tb_top Module. Should be called outside module.
 
 module tb_top;
 	`import uvm_pkg::*;  // This imports all UVM Defined HDL constructs to your TB.
@@ -15,8 +15,13 @@ module tb_top;
 
 	// Include Files containing UVM TB Components and Objects Classes. Order is Mandatory.
 	`include "clk_agent.sv"
-	`include "rst_agent.sv"
-	`include "uart_agent.sv"
+    //`include ".sv"
+    `include "uart_scoreboard.sv"
+    `include "uart_env.sv"
+    `include "clk_sequence.sv"
+    `include "uart_test.sv"
+	//`include "rst_agent.sv"
+	//`include "uart_agent.sv"
 
 	// Instantiation of UART Interface.
 	uart_itf uart_itf_0;
