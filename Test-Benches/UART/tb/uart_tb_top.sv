@@ -10,7 +10,7 @@
 `include "uart_interface.sv"  // This makes uart_itf visible to tb_top Module. Should be called outside module.
 
 module tb_top;
-	`import uvm_pkg::*;  // This imports all UVM Defined HDL constructs to your TB.
+	import uvm_pkg::*;  // This imports all UVM Defined HDL constructs to your TB.
 	`include "uvm_macros.svh" // Required for getting UVM Macro functions.
 
 	// Include Files containing UVM TB Components and Objects Classes. Order is Mandatory.
