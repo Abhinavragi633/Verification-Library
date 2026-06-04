@@ -7,6 +7,7 @@
 			2) Class Declaration for clock driver.*/
 
 // Sequence Item is the value which propagates inside the UVM TB Architecture.
+
 class clk_cntrl_seq_item extends uvm_sequence_item;
 	bit clk_en;
 	real clk_freq;
@@ -35,12 +36,12 @@ class clk_drv extends uvm_driver #(clk_cntrl_seq_item);	//	Parameterization is n
 		`uvm_info("clk_drv",$sformatf("new() constructor is completed for uvm_component %s.",this.get_full_name()),UVM_FULL)
 	endfunction
 
-	virtual void function build_phase (uvm_phase phase);
+	virtual function void build_phase (uvm_phase phase);
 		`uvm_info("clk_drv",$sformatf("Build Phase for %s has started.",this.get_full_name()),UVM_DEBUG)
 
 		super.build_phase(phase);
 
-		if(uvm_config_db #(virtual uart_itf)::get(this,"","uart_vitf",uart_vitf_0) begin
+		if(uvm_config_db #(virtual uart_itf)::get(this,"","uart_vitf",uart_vitf_0)) begin
 			`uvm_info("clk_drv","Successfully fetched virtual UART Inteface from UVM Config DB.",UVM_FULL)
 		end
 		else begin
@@ -79,7 +80,7 @@ class clk_drv extends uvm_driver #(clk_cntrl_seq_item);	//	Parameterization is n
 					continue;
 				end
 				
-				half_period = (1000/(clk_cntrl.clk_freq)) / 2;
+				half_period = (1000.0 /(clk_cntrl.clk_freq)) / 2;
 				uart_vitf_0.clk = 'b0;
 				`uvm_info("clk_drv",$sformatf("Clock is On @ %f Mhz.",clk_cntrl.clk_freq),UVM_MEDIUM)
 				seq_item_port.item_done();
@@ -105,12 +106,12 @@ class clk_mntr extends uvm_monitor;
 		`uvm_info("clk_mntr",$sformatf("new() constructor is completed for uvm_component %s.",this.get_full_name()),UVM_FULL)
 	endfunction
 
-	virtual void function build_phase (uvm_phase phase);
+	virtual function void build_phase (uvm_phase phase);
 		`uvm_info("clk_mntr",$sformatf("Build Phase for %s has started.",this.get_full_name()),UVM_FULL)
 
 		super.build_phase(phase);
 
-		if(uvm_config_db #(virtual uart_itf)::get(this,"","uart_vitf",uart_vitf_0) begin
+		if(uvm_config_db #(virtual uart_itf)::get(this,"","uart_vitf",uart_vitf_0)) begin
 			`uvm_info("clk_mntr","Successfully fetched virtual UART Inteface from UVM Config DB.",UVM_FULL)
 		end else begin
 			`uvm_fatal("clk_mntr","Unable to fetch virtual UART Interface from UVM Config DB.")
@@ -140,7 +141,7 @@ class clk_mntr extends uvm_monitor;
 				@(posedge uart_vitf_0.clk) t0 = $time;
 				@(posedge uart_vitf_0.clk) t0 = $time - t0;
 				
-				freq = (1000 / t0);
+				freq = (1000.0 / t0);
 				f_temp = freq;
 				clk_cntrl.clk_en = 1;
 				clk_cntrl.clk_freq = freq;
@@ -149,7 +150,7 @@ class clk_mntr extends uvm_monitor;
 				while (f_temp == freq) begin
 					t0 = $time;
 					@(posedge uart_vitf_0.clk) t0 = $time - t0;
-					freq = (1/(t0 * 1000));
+					freq = (1000.0 /t0);
 				end
 			end
 		end
@@ -169,7 +170,7 @@ class clk_agent extends uvm_agent;
 		`uvm_info("clk_agent",$sformatf("new() constructor is completed for uvm_component %s.",this.get_full_name()),UVM_FULL)
 	endfunction
 
-	virtual void function build_phase (uvm_phase phase);
+	virtual function void build_phase (uvm_phase phase);
 		`uvm_info("clk_agent",$sformatf("Build Phase for %s has started.",this.get_full_name()),UVM_FULL)
 
 		super.build_phase(phase);
@@ -184,7 +185,7 @@ class clk_agent extends uvm_agent;
 		`uvm_info("clk_agent",$sformatf("Build Phase for %s has completed.",this.get_full_name()),UVM_FULL)
 	endfunction
 
-	virtual void function connect_phase(uvm_phase phase);
+	virtual function void connect_phase(uvm_phase phase);
 		`uvm_info("clk_agent",$sformatf("Connect Phase for %s has started.",this.get_full_name()),UVM_FULL)
 
 		super.connect_phase(phase);
@@ -196,4 +197,3 @@ class clk_agent extends uvm_agent;
 		`uvm_info("clk_agent",$sformatf("Connect Phase for %s has completed.",this.get_full_name()),UVM_FULL)
 	endfunction
 endclass
-
