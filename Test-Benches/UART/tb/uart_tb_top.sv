@@ -24,7 +24,7 @@ module tb_top;
 	//`include "uart_agent.sv"
 
 	// Instantiation of UART Interface.
-	uart_itf uart_itf_0;
+	uart_itf uart_itf_0();		// Use Port List always during Instantiations.
 
 	// Instantiation of UART DUT.
 	uart_top uart_dut ( .clk(uart_itf_0.clk),
