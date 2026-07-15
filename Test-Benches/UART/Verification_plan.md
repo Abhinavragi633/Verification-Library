@@ -11,3 +11,23 @@ Check all inputs and output signals and their widths are matched with spec.
 ### clk_rst
 
 ## TEST Category 3: Register Tests
+
+                    +----------------+
+                    |   base_test    |
+                    +-------+--------+
+                            |
+                     +------+------+
+                     |   uart_env   |
+                     +------+------+
+                            |
+      ---------------------------------------------------
+      |           |            |             |           |
+      |           |            |             |           |
+ clk_agent    rst_agent   bus_agent    uart_line_agent scoreboard
+                              |               |
+                           Driver         Driver/Monitor
+                              |               |
+                       Register IF        tx/rx pins
+                              \             /
+                               \           /
+                                ---- DUT ----
