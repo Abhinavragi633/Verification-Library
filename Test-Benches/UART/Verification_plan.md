@@ -31,3 +31,37 @@ Check all inputs and output signals and their widths are matched with spec.
                               \             /
                                \           /
                                 ---- DUT ----
+
+uart_rst_test
+    ├── Reset sequence
+    ├── Register defaults
+    ├── UART output defaults
+    └── Interrupt defaults
+
+uart_reg_test
+    ├── Register R/W
+    ├── RO registers
+    ├── RW1C registers
+    └── Illegal accesses
+
+uart_tx_test
+    ├── TX enable
+    ├── Frame generation
+    ├── Parity
+    └── Stop bit
+
+uart_rx_test
+    ├── RX reception
+    ├── FIFO updates
+    └── Status bits
+
+uart_irq_test
+    ├── TX empty interrupt
+    ├── RX full interrupt
+    ├── Interrupt enable
+    └── Interrupt clear
+
+uart_random_test
+    ├── Constrained random traffic
+    ├── Random resets
+    └── Long regression
